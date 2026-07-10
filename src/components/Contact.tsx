@@ -32,10 +32,10 @@ export const Contact: React.FC = () => {
     setLoading(true);
     setStatus({ type: null, message: '' });
 
-    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '';
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '1a29f3d6-66bf-4210-8fb0-570438d3ba71';
 
     try {
-      if (!accessKey) {
+      if (!accessKey || accessKey === 'sandbox') {
         // Simulated local sandbox delay
         await new Promise((resolve) => setTimeout(resolve, 1500));
         confetti({
