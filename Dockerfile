@@ -2,15 +2,19 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
+# Define build arguments
+ARG VITE_WEB3FORMS_ACCESS_KEY
+
+# Set environment variables for build time
+ENV VITE_WEB3FORMS_ACCESS_KEY=$VITE_WEB3FORMS_ACCESS_KEY
+ENV VITE_BASE_URL=/
+
 # Copy package descriptors first to leverage Docker layer caching
 COPY package*.json ./
 RUN npm ci
 
 # Copy codebase
 COPY . .
-
-# Set Vite base path to root '/' for Docker environment serving
-ENV VITE_BASE_URL=/
 
 # Build production static bundle
 RUN npm run build
